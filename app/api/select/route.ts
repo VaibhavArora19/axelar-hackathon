@@ -4,6 +4,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const data: any = req.json();
   const buttonId = data.untrustedData.buttonIndex;
 
+  console.log("data is", data);
+
   if (buttonId === 1) {
     return new NextResponse(`
       <!DOCTYPE html>
