@@ -4,13 +4,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/cosmiccowboys",
-        destination: "https://cosmiccowboyws.cloud",
-        permanent: false,
-      },
-      {
-        source: "/pinatacloud",
-        destination: "https://pinata.cloud/blog",
+        source: "/token",
+        destination: "https://docs.axelar.dev/",
         permanent: false,
       },
     ];
