@@ -4,21 +4,21 @@ import type { Metadata } from "next";
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: "Begin",
+      label: "Get started",
     },
   ],
-  image: `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmYZ2Jzsxhu9LaTnYohK6ktzJPJbFYykawRg31V96soTp1`,
-  postUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/frame?id=1`,
+  image: `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmexMVjr5xGzz2NBumwdUKPwNPt46LFauLv4rMnKstciob`,
+  postUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/home`,
 });
 
 export const metadata: Metadata = {
-  title: "Cosmic Cowboys",
-  description: "A frame telling the story of cosmic cowboys",
+  title: "Axelar Interchain Token Service",
+  description: "Send tokens cross chain easily",
   openGraph: {
-    title: "Cosmic Cowboys",
-    description: "A frame telling the story of cosmic cowboys",
+    title: "Axelar Interchain Token Service",
+    description: "Send tokens cross chain easily",
     images: [
-      `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmYZ2Jzsxhu9LaTnYohK6ktzJPJbFYykawRg31V96soTp1`,
+      `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmexMVjr5xGzz2NBumwdUKPwNPt46LFauLv4rMnKstciob`,
     ],
   },
   other: {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h1>Cosmic Cowboys</h1>
+      <h1>Axelar Interchain Token Service Frames</h1>
     </>
   );
 }
