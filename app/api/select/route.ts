@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const data: any = req.json();
-  const buttonId = data.untrustedData.buttonIndex;
-
+  const data: any = await req.json();
   console.log("data is", data);
+  const buttonId = data.untrustedData.buttonIndex;
 
   if (buttonId === 1) {
     return new NextResponse(`
