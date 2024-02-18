@@ -4,7 +4,7 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/token",
+        source: "/create",
         destination: "https://docs.axelar.dev/",
         permanent: false,
       },
