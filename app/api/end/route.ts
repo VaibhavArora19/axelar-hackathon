@@ -1,23 +1,34 @@
+import { client } from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest): Promise<Response> {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   const data = await req.json();
-  console.log(data);
-  // const buttonId = data.untrustedData.buttonIndex;
+  const inputText: string = data.untrustedData.inputText;
 
-  // let path: string;
-  // if (buttonId === 1) {
-  //   path = "cosmiccowboys";
-  // } else if (buttonId === 2) {
-  //   path = "pinatacloud";
-  // } else if (buttonId === 3) {
-  //   path = "video";
-  // } else {
-  //   path = "";
-  // }
-  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, {
-    status: 302,
+  const sourceChain = inputText.split(",")[0];
+  let destinationChain = inputText.split(",");
+
+  //@ts-ignore
+  destinationChain = destinationChain.shift();
+
+  client.set("sourceChain", sourceChain);
+
+  destinationChain.forEach(async (chain) => {
+    client.rPush("destinationChain", chain);
   });
-}
 
-export const dynamic = "force-dynamic";
+  return new NextResponse(`   
+  <!DOCTYPE html>
+      <html>
+        <head>
+        <title>Congratulations</title>
+          <meta property="fc:frame" content="vNext" />
+          <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmeTa65VGaYty9s5tiBdqdQ78qZhWiAvcF49zaH8CrCVtD"/>
+          <meta property="fc:frame:input:text" content="Congratulations"/>
+          <meta property="fc:frame:button:1" content="Mint tokens" />
+          <meta property="fc:frame:button:1:action" content="Link"/>
+          <meta property="fc:frame:button:1:target" content="${process.env.NEXT_PUBLIC_BASE_URL}/create"/>
+          </head>
+      </html>
+  `);
+}
