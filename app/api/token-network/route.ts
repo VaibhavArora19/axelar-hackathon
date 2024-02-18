@@ -5,9 +5,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const data = await req.json();
   const inputText = data.untrustedData.inputText;
 
-  const name = await client.get("name");
-  const symbol = await client.get("symbol");
-
   client.set("amount", inputText);
 
   return new NextResponse(`   

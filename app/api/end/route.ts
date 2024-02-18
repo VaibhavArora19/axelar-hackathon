@@ -21,7 +21,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     `${process.env.NEXT_PUBLIC_BASE_URL}/create`,
     {
       headers: headers,
-      status: 302,
+      status: 307,
     }
   );
   return response;
