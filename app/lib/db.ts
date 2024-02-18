@@ -7,10 +7,8 @@ const client = createClient({
   },
 });
 
-client.on("error", (err) => console.log(err));
+client.on("error", (error) => console.log(error));
 
-if (!client.isOpen) {
-  client.connect();
-}
+if (!client.isOpen) client.connect();
 
 export { client };
