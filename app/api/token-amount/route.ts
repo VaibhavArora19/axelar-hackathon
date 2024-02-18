@@ -16,7 +16,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmPbie6bPDZJYLFzt9org9ZLZXXGmiSPUnNGNGXtqNhCTF"/>
           <meta property="fc:frame:input:text" content="Token amount"/>
           <meta property="fc:frame:button:1" content="Next" />
-          <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_BASE_URL}/api/token-amount"/>
+          <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_BASE_URL}/api/token-network"/>
           </head>
       </html>
   `);
