@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: "/create",
-        destination: "https://docs.axelar.dev/",
+        destination: "https://cosmiccowboys.cloud",
         permanent: false,
       },
     ];

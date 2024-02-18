@@ -15,16 +15,9 @@ export async function POST(req: NextRequest): Promise<Response> {
   // } else {
   //   path = "";
   // }
-  const headers = new Headers();
-  headers.set("Location", `${process.env.NEXT_PUBLIC_BASE_URL}/`);
-  const response = NextResponse.redirect(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/create`,
-    {
-      headers: headers,
-      status: 307,
-    }
-  );
-  return response;
+  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, {
+    status: 302,
+  });
 }
 
 export const dynamic = "force-dynamic";
