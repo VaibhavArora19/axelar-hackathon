@@ -4,8 +4,8 @@ import { client } from "@/app/lib/db";
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const data = await req.json();
   const inputText = data.untrustedData.inputText;
-
-  await client.set("name", inputText);
+  console.log("input", data);
+  client.set("name", inputText);
 
   return new NextResponse(`   
   <!DOCTYPE html>
