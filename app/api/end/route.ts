@@ -27,7 +27,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:input:text" content="Congratulations"/>
           <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_BASE_URL}/api/home"/>
           <meta property="fc:frame:button:1" content="Mint tokens" />
-          <meta property="fc:frame:button:1:action" content="Link"/>
+          <meta property="fc:frame:button:1:action" content="link"/>
           <meta property="fc:frame:button:1:target" content="${process.env.NEXT_PUBLIC_BASE_URL}/create"/>
           </head>
       </html>
