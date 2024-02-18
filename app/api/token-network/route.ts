@@ -5,6 +5,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const data = await req.json();
   const inputText = data.untrustedData.inputText;
 
+  const name = await client.get("name");
+  const symbol = await client.get("symbol");
+
   client.set("amount", inputText);
 
   return new NextResponse(`   
@@ -17,8 +20,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:input:text" content="Token networks"/>
           <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_BASE_URL}/api/end"/>
           <meta property="fc:frame:button:1" content="Next" />
-          <meta  property="fc:frame:button:1:action" content="link"/>
-          <meta property="fc:frame:button:1:target" content="https://axelar-hackathon.vercel.app/create"/>
+          <meta  property="fc:frame:button:1:action" content="post_redirect"/>
           </head>
       </html>
   `);

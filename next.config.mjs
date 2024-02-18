@@ -6,7 +6,7 @@ const nextConfig = {
       {
         source: "/create",
         destination: "https://docs.axelar.dev/",
-        permanent: false,
+        permanent: true,
       },
     ];
   },
