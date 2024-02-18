@@ -15,12 +15,16 @@ export async function POST(req: NextRequest): Promise<Response> {
   // } else {
   //   path = "";
   // }
-  return new Response("New token", {
-    status: 302,
-    headers: {
-      Location: "https://axelar-hackathon.vercel.app/create",
-    },
-  });
+  const headers = new Headers();
+  headers.set("Location", `${process.env.NEXT_PUBLIC_BASE_URL}/`);
+  const response = NextResponse.redirect(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/create`,
+    {
+      headers: headers,
+      status: 302,
+    }
+  );
+  return response;
 }
 
 export const dynamic = "force-dynamic";
