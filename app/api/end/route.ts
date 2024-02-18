@@ -9,12 +9,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   let destinationChain = inputText.split(",");
 
   //@ts-ignore
-  destinationChain = destinationChain.shift();
+  destinationChain = destinationChain.slice();
 
   client.set("sourceChain", sourceChain);
 
-  destinationChain.forEach(async (chain) => {
-    client.rPush("destinationChain", chain);
+  destinationChain.forEach((chain) => {
+    client.rPush("destinationChain", chain.trim());
   });
 
   return new NextResponse(`   
