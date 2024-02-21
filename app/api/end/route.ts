@@ -14,7 +14,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   client.set("sourceChain", sourceChain);
 
   destinationChain.forEach((chain) => {
-    client.rPush("destinationChain", chain.trim());
+    client.rpush("destinationChain", chain.trim());
   });
 
   return new NextResponse(`   
