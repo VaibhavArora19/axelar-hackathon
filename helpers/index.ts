@@ -1,5 +1,11 @@
 import { ethers, Contract } from "ethers";
-import { TOKEN_FACTORY_ABI, TOKEN_FACTORY_ADDRESS } from "@/constants";
+import {
+  TOKEN_FACTORY_ABI,
+  TOKEN_FACTORY_ADDRESS,
+  AXL_CHAINS,
+  TOKEN_ABI,
+} from "@/constants";
+import { AxelarQueryAPI } from "@axelar-network/axelarjs-sdk";
 export const createToken = async (
   chains: string[],
   minter: string,
@@ -16,12 +22,13 @@ export const createToken = async (
       TOKEN_FACTORY_ABI,
       signer
     );
-    console.log(contract);
-    const abiCoder = new ethers.AbiCoder();
-    const saltbytes = abiCoder.encode(["uint256"], [145333422435434]);
+    const saltbytes = ethers.hexlify(ethers.randomBytes(32));
     let iface: any = new ethers.Interface(TOKEN_FACTORY_ABI);
     let data = [];
-    const gasValue = 121210000000000;
+    const sdk = new AxelarQueryAPI({
+      environment: "mainnet" as any,
+    });
+    let gas = ethers.parseEther("0");
     data.push(
       iface.encodeFunctionData("deployInterchainToken", [
         saltbytes,
@@ -33,18 +40,29 @@ export const createToken = async (
       ])
     );
     for (let i = 0; i < chains.length; i++) {
+      console.log(
+        AXL_CHAINS[fromChain.toLowerCase()].chainId,
+        AXL_CHAINS[chains[i].toLowerCase()].chainId
+      );
+      const gasValue = await sdk.estimateGasFee(
+        AXL_CHAINS[fromChain.toLowerCase()].chainId,
+        AXL_CHAINS[chains[i].toLowerCase()].chainId,
+        AXL_CHAINS[fromChain.toLowerCase()].token,
+        500000
+      );
       data.push(
         iface.encodeFunctionData("deployRemoteInterchainToken", [
-          fromChain,
+          AXL_CHAINS[fromChain.toLowerCase()].chainId,
           saltbytes,
           minter,
-          chains[i],
+          AXL_CHAINS[chains[i].toLowerCase()].chainId,
           gasValue,
         ])
       );
+      gas += ethers.parseUnits(gasValue as string, 0);
     }
-    console.log(data);
-    const tx = await contract.multicall(data, { value: "121210000000000" });
+    console.log(gas, data, saltbytes);
+    const tx = await contract.multicall(data, { value: gas });
     await tx.wait();
   } catch (e) {
     console.log(e, "Create Token");
@@ -54,16 +72,13 @@ export const interchainTransfer = async (
   destinationChain: string,
   recipient: string,
   amount: string,
+  token: string,
   signer: any
 ) => {
   try {
-    const contract = new Contract(
-      TOKEN_FACTORY_ADDRESS,
-      TOKEN_FACTORY_ABI,
-      signer
-    );
+    const contract = new Contract(token, TOKEN_ABI, signer);
     const tx = await contract.interchainTransfer(
-      destinationChain,
+      AXL_CHAINS[destinationChain.toLowerCase()].chainId,
       recipient,
       ethers.parseEther(amount),
       "0x"

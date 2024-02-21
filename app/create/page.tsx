@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import { createToken } from "@/helpers";
 
 export default function Page() {
   const [isConnected, setIsConnected] = useState(false);
-  const [tokenInfo, setTokenInfo] = useState({
+  const [signer, setSigner]: any = useState();
+  const [tokenInfo, setTokenInfo]: any = useState({
     name: null,
     symbol: null,
     amount: null,
@@ -15,17 +17,38 @@ export default function Page() {
 
   const connectWalletHandler = async () => {
     //@ts-ignore
-    const account = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
+    let provider = new ethers.BrowserProvider(window.ethereum);
 
-    //@ts-ignore
-    const chainId = await window?.ethereum.request({ method: "eth_chainId" });
+    let signer = await provider.getSigner();
+    setSigner(signer);
 
     setIsConnected(true);
   };
 
-  const mintTokensHandler = async () => {};
+  const mintTokensHandler = async () => {
+    const account = await signer.getAddress();
+    // @ts-ignore
+    await createToken(
+      tokenInfo.destinationChain,
+      account,
+      tokenInfo.sourceChain,
+      tokenInfo.name,
+      tokenInfo.symbol,
+      18,
+      tokenInfo.amount,
+      signer
+    );
+    // await createToken(
+    //   ["fantom", "Celo"],
+    //   account,
+    //   "Base",
+    //   "dien",
+    //   "dien",
+    //   18,
+    //   100000000000,
+    //   signer
+    // );
+  };
 
   return (
     <div className="flex justify-center flex-col mt-20">

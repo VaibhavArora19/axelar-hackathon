@@ -9,7 +9,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   let destinationChain = inputText.split(",");
 
   //@ts-ignore
-  destinationChain = destinationChain.slice();
+  destinationChain = destinationChain.slice(1);
 
   const name = await client.get("name");
   const symbol = await client.get("symbol");

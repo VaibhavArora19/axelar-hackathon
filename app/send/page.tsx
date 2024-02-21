@@ -1,23 +1,33 @@
 "use client";
+import { ethers } from "ethers";
 
 import { useState } from "react";
+import { interchainTransfer } from "@/helpers";
 
 export default function Page() {
   const [isConnected, setIsConnected] = useState(false);
-
+  const [signer, setSigner]: any = useState();
   const connectWalletHandler = async () => {
     //@ts-ignore
-    const account = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
+    let provider = new ethers.BrowserProvider(window.ethereum);
 
-    //@ts-ignore
-    const chainId = await window?.ethereum.request({ method: "eth_chainId" });
+    let signer = await provider.getSigner();
+    setSigner(signer);
 
     setIsConnected(true);
   };
 
-  const transferTokensHandler = () => {};
+  const transferTokensHandler = async () => {
+    const account: any = await signer.getAddress();
+    // @ts-ignore
+    await interchainTransfer(
+      "fantom",
+      account,
+      "100000",
+      "0x04e964aAe31EDa657510F839135F3462DC8CEAbe",
+      signer
+    );
+  };
 
   return (
     <div className="flex justify-center flex-col mt-20">
