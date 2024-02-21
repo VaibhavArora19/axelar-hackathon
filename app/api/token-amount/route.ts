@@ -7,7 +7,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const output = await client.set("symbol", inputText);
 
-  console.log("symbol", output);
+  const dd = await client.get("symbol");
+  console.log("symbol", output, dd);
 
   return new NextResponse(`   
   <!DOCTYPE html>
