@@ -5,7 +5,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const data = await req.json();
   const inputText = data.untrustedData.inputText;
 
-  client.set("amount", inputText);
+  await client.set("amount", inputText);
 
   return new NextResponse(`   
   <!DOCTYPE html>

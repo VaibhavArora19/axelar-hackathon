@@ -11,10 +11,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   //@ts-ignore
   destinationChain = destinationChain.slice();
 
-  client.set("sourceChain", sourceChain);
+  const output = await client.set("sourceChain", sourceChain);
 
-  destinationChain.forEach((chain) => {
-    client.rpush("destinationChain", chain.trim());
+  console.log("output", output);
+  destinationChain.forEach(async (chain) => {
+    await client.rpush("destinationChain", chain.trim());
   });
 
   return new NextResponse(`   
