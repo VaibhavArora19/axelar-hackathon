@@ -24,11 +24,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       <!DOCTYPE html>
       <html>
       <head>
-          <title>Create new token</title>
+          <title>Send existing token</title>
           <meta property="fc:frame" content="vNext"/>
-          <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmSQqNgT3qRb3W3nV5K6xw3WTa68KoNAL8U1R7sh9LDXt9" />
-          <meta property="fc:frame:input:text" content="Token name"/>
-          <meta property="fc:frame:input:text" content="Token symbol"/>
+          <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmebVmA21DFZA4w7ASbAFvqeWNHLqJtE29BrATzDEUqaT4" />
+          <meta property="fc:frame:input:text" content="Token address"/>
+          <meta property="fc:frame:button:1" content="Next" />
+          <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_BASE_URL}/api/existing-token-amount"/>
       </head>
       </html>
     `);

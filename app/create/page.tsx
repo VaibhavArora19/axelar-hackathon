@@ -13,28 +13,6 @@ export default function Page() {
     destinationChain: null,
   });
 
-  const getData = async () => {
-    const { signal } = new AbortController();
-    const data = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/token-info`,
-      {
-        cache: "reload",
-        signal,
-        next: {
-          revalidate: 10,
-        },
-      }
-    );
-
-    const response = await data.json();
-
-    console.log("resop", response);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
   const connectWalletHandler = async () => {
     //@ts-ignore
     const account = await window.ethereum.request({
