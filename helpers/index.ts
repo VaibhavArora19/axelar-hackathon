@@ -69,6 +69,7 @@ export const createToken = async (
   }
 };
 export const interchainTransfer = async (
+  srcChain: string,
   destinationChain: string,
   recipient: string,
   amount: string,
@@ -76,12 +77,24 @@ export const interchainTransfer = async (
   signer: any
 ) => {
   try {
+    const sdk = new AxelarQueryAPI({
+      environment: "mainnet" as any,
+    });
+    const gas = await sdk.estimateGasFee(
+      AXL_CHAINS[srcChain.trim().toLowerCase()].chainId,
+      AXL_CHAINS[destinationChain.trim().toLowerCase()].chainId,
+      AXL_CHAINS[srcChain.trim().toLowerCase()].token,
+      500000
+    );
     const contract = new Contract(token, TOKEN_ABI, signer);
     const tx = await contract.interchainTransfer(
       AXL_CHAINS[destinationChain.trim().toLowerCase()].chainId,
       recipient,
       ethers.parseEther(amount),
-      "0x"
+      "0x",
+      {
+        value: gas,
+      }
     );
     await tx.wait();
   } catch (e) {
