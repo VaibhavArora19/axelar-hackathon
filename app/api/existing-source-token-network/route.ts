@@ -17,7 +17,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmPmq7MpeSGouTXfTnWgk4MRF21ABF526EE6NeVjccSTfm"/>
           <meta property="fc:frame:button:1" content="Base" />
           <meta property="fc:frame:button:2" content="Fantom"/>
-          <meta property="fc:frame:button:3" content content="Polygon"/>
+          <meta property="fc:frame:button:3" content="Polygon"/>
           <meta property="fc:frame:button:4" content="Bsc"/>
           <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_BASE_URL}/api/existing-dest-token-network"/>
           </head>
