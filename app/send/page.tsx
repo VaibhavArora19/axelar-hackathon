@@ -3,10 +3,18 @@ import { ethers } from "ethers";
 
 import { useState } from "react";
 import { interchainTransfer } from "@/helpers";
+import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const [isConnected, setIsConnected] = useState(false);
   const [signer, setSigner]: any = useState();
+  const searchParams = useSearchParams();
+  const destChain: any = searchParams.get("destChain");
+  const sourceChain: any = searchParams.get("sourceChain");
+  const recipient: any = searchParams.get("recipient");
+  const amount: any = searchParams.get("amount");
+  const token: any = searchParams.get("token");
+
   const connectWalletHandler = async () => {
     //@ts-ignore
     let provider = new ethers.BrowserProvider(window.ethereum);
@@ -18,15 +26,8 @@ export default function Page() {
   };
 
   const transferTokensHandler = async () => {
-    const account: any = await signer.getAddress();
     // @ts-ignore
-    await interchainTransfer(
-      "fantom",
-      account,
-      "100000",
-      "0x04e964aAe31EDa657510F839135F3462DC8CEAbe",
-      signer
-    );
+    await interchainTransfer(destChain, recipient, amount, token, signer);
   };
 
   return (

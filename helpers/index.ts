@@ -41,21 +41,21 @@ export const createToken = async (
     );
     for (let i = 0; i < chains.length; i++) {
       console.log(
-        AXL_CHAINS[fromChain.toLowerCase()].chainId,
-        AXL_CHAINS[chains[i].toLowerCase()].chainId
+        AXL_CHAINS[fromChain.trim().toLowerCase()].chainId,
+        AXL_CHAINS[chains[i].trim().toLowerCase()].chainId
       );
       const gasValue = await sdk.estimateGasFee(
-        AXL_CHAINS[fromChain.toLowerCase()].chainId,
-        AXL_CHAINS[chains[i].toLowerCase()].chainId,
-        AXL_CHAINS[fromChain.toLowerCase()].token,
+        AXL_CHAINS[fromChain.trim().toLowerCase()].chainId,
+        AXL_CHAINS[chains[i].trim().toLowerCase()].chainId,
+        AXL_CHAINS[fromChain.trim().toLowerCase()].token,
         500000
       );
       data.push(
         iface.encodeFunctionData("deployRemoteInterchainToken", [
-          AXL_CHAINS[fromChain.toLowerCase()].chainId,
+          AXL_CHAINS[fromChain.trim().toLowerCase()].chainId,
           saltbytes,
           minter,
-          AXL_CHAINS[chains[i].toLowerCase()].chainId,
+          AXL_CHAINS[chains[i].trim().toLowerCase()].chainId,
           gasValue,
         ])
       );
@@ -78,7 +78,7 @@ export const interchainTransfer = async (
   try {
     const contract = new Contract(token, TOKEN_ABI, signer);
     const tx = await contract.interchainTransfer(
-      AXL_CHAINS[destinationChain.toLowerCase()].chainId,
+      AXL_CHAINS[destinationChain.trim().toLowerCase()].chainId,
       recipient,
       ethers.parseEther(amount),
       "0x"

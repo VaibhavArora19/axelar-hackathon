@@ -1,19 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ethers } from "ethers";
 import { createToken } from "@/helpers";
-
+import { useSearchParams } from "next/navigation";
 export default function Page() {
   const [isConnected, setIsConnected] = useState(false);
   const [signer, setSigner]: any = useState();
-  const [tokenInfo, setTokenInfo]: any = useState({
-    name: null,
-    symbol: null,
-    amount: null,
-    sourceChain: null,
-    destinationChain: null,
-  });
+  const searchParams = useSearchParams();
+  const destChain = searchParams.get("destChain");
+  const sourceChain: any = searchParams.get("sourceChain");
+  const name: any = searchParams.get("name");
+  const symbol: any = searchParams.get("symbol");
+  const amount: any = searchParams.get("amount");
 
   const connectWalletHandler = async () => {
     //@ts-ignore
@@ -27,27 +26,18 @@ export default function Page() {
 
   const mintTokensHandler = async () => {
     const account = await signer.getAddress();
+    const destinationChain: any = destChain?.split(",");
     // @ts-ignore
     await createToken(
-      tokenInfo.destinationChain,
+      destinationChain,
       account,
-      tokenInfo.sourceChain,
-      tokenInfo.name,
-      tokenInfo.symbol,
+      sourceChain,
+      name,
+      symbol,
       18,
-      tokenInfo.amount,
+      amount,
       signer
     );
-    // await createToken(
-    //   ["fantom", "Celo"],
-    //   account,
-    //   "Base",
-    //   "dien",
-    //   "dien",
-    //   18,
-    //   100000000000,
-    //   signer
-    // );
   };
 
   return (
