@@ -14,9 +14,12 @@ export default function Page() {
   });
 
   const getData = async () => {
-    const data = await fetch("http://localhost:3000/api/token-info", {
-      cache: "no-store",
-    });
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/token-info`,
+      {
+        cache: "no-store",
+      }
+    );
 
     const response = await data.json();
 
