@@ -11,16 +11,19 @@
   "dependencies": {
     "@axelar-network/axelarjs-sdk": "^0.14.1",
     "@coinbase/onchainkit": "^0.6.2",
-    "ethers": "^5.7.2",
+    "@upstash/redis": "^1.28.4",
+    "ethers": "^6.11.1",
     "next": "14.1.0",
     "react": "^18",
-    "react-dom": "^18",
-    "redis": "^4.6.13"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
 }
