@@ -14,10 +14,15 @@ export default function Page() {
   });
 
   const getData = async () => {
+    const { signal } = new AbortController();
     const data = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/token-info`,
       {
-        cache: "no-store",
+        cache: "reload",
+        signal,
+        next: {
+          revalidate: 10,
+        },
       }
     );
 
