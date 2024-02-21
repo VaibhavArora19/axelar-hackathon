@@ -22,7 +22,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         <head>
         <title>Amount</title>
           <meta property="fc:frame" content="vNext" />
-          <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmPbie6bPDZJYLFzt9org9ZLZXXGmiSPUnNGNGXtqNhCTF"/>
+          <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmNUQ5WCrDpRiYWD82MauNEfD6FsYTzCywLpMuvDGCXNcE"/>
           <meta property="fc:frame:button:1" content="Base" />
           <meta property="fc:frame:button:2" content="Fantom"/>
           <meta property="fc:frame:button:3" content="Polygon"/>

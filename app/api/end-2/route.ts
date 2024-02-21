@@ -5,9 +5,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const data = await req.json();
   const inputText: string = data.untrustedData.inputText;
 
-  //@ts-ignore
-  destinationChain = destinationChain.slice();
-
   const token = await client.get("address");
   const sourceChain = await client.get("sourceChain");
   const destChain = await client.get("destChain");
